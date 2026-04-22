@@ -47,12 +47,6 @@ fn main() -> io::Result<()> {
         tmp.write_all(b"\n\n")?;
     }
 
-    // if let Some(path) = template_path {
-    //     let template = read_file_to_vec(&path)?;
-    //     tmp.write_all(&template)?;
-    //     tmp.write_all(b"\n\n")?;
-    // }
-
     io::copy(&mut io::stdin(), &mut tmp)?;
     tmp.flush()?;
     let path = tmp.path().to_owned();
@@ -62,7 +56,7 @@ fn main() -> io::Result<()> {
 
     if !status.success() {
         eprintln!("editor exited with non-zero status: {}", status);
-        std::process::exit(status.code().unwrap_or(1));
+        process::exit(status.code().unwrap_or(1));
     }
 
     let mut output = Vec::new();
